@@ -15,7 +15,10 @@ LoanShield is built using the following dependencies:
 
 ## Getting Started
 
-To start the LoanShield app:
+:link: [view here](https://ndowkunda.github.io/LoanShieldAPI) 
+
+
+To start the LoanShield app locally:
 
 1. Install Node.js on your machine if you haven't already done so.
 
