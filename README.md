@@ -112,4 +112,4 @@ describe("Validate annual income", () => {
 ## Acknowledgements
 
 This project was created and designed to give me hands-on experience with creating a RESTful API with SOLID principles in mind.
-Shout out to [@NC-1234](@https://github.com/NC-1234) providing me with this opportunity to practice and develop these skills:pray:
+Shout out to [@NC-1234](https://github.com/NC-1234) providing me with this opportunity to practice and develop these skills:pray:
