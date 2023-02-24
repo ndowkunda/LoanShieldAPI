@@ -6,12 +6,12 @@ LoanShield is a loan application validation app that provides protection and sec
 
 LoanShield is built using the following dependencies:
 
-:link: [Node.js](https://nodejs.org/) - open-source, cross-platform, back-end JavaScript runtime environment
-:link: [Express](https://expressjs.com/) - Node.js web application framework.
-:link: [Nodemon](https://nodemon.io/) - A tool that automatically restarts the Node.js application when file changes in the directory are detected.
-:link: [Pug](https://pugjs.org/) - A high-performance template engine for Node.js, formerly known as Jade.
-:link: [Jest](https://jestjs.io/) - A JavaScript testing framework for Node.js, used for testing the application logic.
-:link: [Supertest](https://github.com/visionmedia/supertest) - A library used to test HTTP endpoints in Node.js, often used in combination with Jest.
+* :link: [Node.js](https://nodejs.org/) - open-source, cross-platform, back-end JavaScript runtime environment
+* :link: [Express](https://expressjs.com/) - Node.js web application framework.
+* :link: [Nodemon](https://nodemon.io/) - A tool that automatically restarts the Node.js application when file changes in the directory are detected.
+* :link: [Pug](https://pugjs.org/) - A high-performance template engine for Node.js, formerly known as Jade.
+* :link: [Jest](https://jestjs.io/) - A JavaScript testing framework for Node.js, used for testing the application logic.
+* :link: [Supertest](https://github.com/visionmedia/supertest) - A library used to test HTTP endpoints in Node.js, often used in combination with Jest.
 
 ## Getting Started
 
@@ -112,4 +112,4 @@ describe("Validate annual income", () => {
 ## Acknowledgements
 
 This project was created and designed to give me hands-on experience with creating a RESTful API with SOLID principles in mind.
-Shout out to [NC-1234](@https://github.com/NC-1234) providing me with this opportunity to practice and develop these skills:pray:
+Shout out to [@NC-1234](@https://github.com/NC-1234) providing me with this opportunity to practice and develop these skills:pray:
