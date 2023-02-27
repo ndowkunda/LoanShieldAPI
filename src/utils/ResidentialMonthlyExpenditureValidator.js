@@ -5,10 +5,16 @@ class ResidentialMonthlyExpenditureValidator {
   }
 
   validate(loanApplication) {
-    return (
-      loanApplication.residentialMonthlyExpenditure <=
+    if (
+      loanApplication.residentialMonthlyExpenditure >
       this.maximumResidentialMonthlyExpenditure
-    );
+    ) {
+      throw new Error(
+        `Residential monthly expenditure cannot exceed ${this.maximumResidentialMonthlyExpenditure}`
+      );
+    }
+
+    return true;
   }
 }
 
