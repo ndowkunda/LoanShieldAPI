@@ -1,6 +1,8 @@
+const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
 class AgeValidator {
   constructor(minimumAgeInYears) {
     this.minimumAgeInYears = minimumAgeInYears;
+    this.millisecondsInYear = millisecondsInYear;
   }
 
   validate(loanApplication) {
@@ -8,16 +10,19 @@ class AgeValidator {
     return ageInYears >= this.minimumAgeInYears;
   }
 
-  calculateAgeInYears(dateOfBirth) {
+  validateDateOfBirth(dateOfBirth) {
     const birthDate = new Date(dateOfBirth);
+    if (dateOfBirth !== birthDate.toLocaleDateString("en-CA")) {
+      throw new Error("Invalid date of birth");
+    }
+    return birthDate;
+  }
+
+  calculateAgeInYears(dateOfBirth) {
+    const birthDate = this.validateDateOfBirth(dateOfBirth);
     const currentDate = new Date();
-     if (dateOfBirth !== birthDate.toLocaleDateString("en-CA")) {
-       throw new Error("Invalid date of birth");
-     }
     const diffInMillseconds = currentDate - birthDate;
-    const ageInYears = Math.floor(
-      diffInMillseconds / (1000 * 60 * 60 * 24 * 365.25)
-    );
+    const ageInYears = Math.floor(diffInMillseconds / millisecondsInYear);
     return ageInYears;
   }
 }
