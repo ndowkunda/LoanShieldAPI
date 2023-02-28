@@ -1,7 +1,7 @@
 const AnnualIncomeValidator = require("../../src/utils/AnnualIncomeValidator");
 
 describe("validate income", () => {
-  test("should return invalid income when annual income is NaN", () => {
+  test("should throw error when annual income is NaN", () => {
     const mockApplicantReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "£10000",
@@ -33,8 +33,8 @@ describe("validate income", () => {
       residentialMonthlyExpenditure: "900",
     };
     const annualIncomeValidator = new AnnualIncomeValidator(25000);
-    expect(() => {
+    const isValidAnnualIncome =
       annualIncomeValidator.validate(mockApplicantReq);
-    }).toThrowError("Annual income must be at least 25000");
+    expect(isValidAnnualIncome).toBe(false);
   });
 });

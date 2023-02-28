@@ -1,6 +1,7 @@
 class AnnualIncomeValidator {
   constructor(minimumAnnualIncome) {
     this.minimumAnnualIncome = minimumAnnualIncome;
+    this.errors = [];
   }
 
   validateAnnualIncome(annualIncome) {
@@ -9,16 +10,16 @@ class AnnualIncomeValidator {
     }
 
     if (annualIncome < this.minimumAnnualIncome) {
-      throw new Error(
+      this.errors.push(
         `Annual income must be at least ${this.minimumAnnualIncome}`
       );
     }
+    return this.errors.length === 0;
   }
 
   validate(loanApplication) {
     const annualIncome = Number(loanApplication.annualIncome);
-    this.validateAnnualIncome(annualIncome);
-    return true;
+    return this.validateAnnualIncome(annualIncome);
   }
 }
 
