@@ -3,12 +3,16 @@ class AgeValidator {
   constructor(minimumAgeInYears) {
     this.minimumAgeInYears = minimumAgeInYears;
     this.millisecondsInYear = millisecondsInYear;
-    this.errorMessage = "Invalid date of birth";
+    this.errors = [];
   }
 
   validate(loanApplication) {
     const ageInYears = this.calculateAgeInYears(loanApplication.dateOfBirth);
-    return ageInYears >= this.minimumAgeInYears;
+  
+    if (ageInYears < this.minimumAgeInYears) {
+      this.errors.push(`Age must be least ${this.minimumAgeInYears}`);
+    }
+    return this.errors.length == 0;
   }
 
   validateDateOfBirth(dateOfBirth) {
