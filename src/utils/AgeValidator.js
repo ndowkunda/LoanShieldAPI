@@ -3,6 +3,7 @@ class AgeValidator {
   constructor(minimumAgeInYears) {
     this.minimumAgeInYears = minimumAgeInYears;
     this.millisecondsInYear = millisecondsInYear;
+    this.errorMessage = "Invalid date of birth";
   }
 
   validate(loanApplication) {
