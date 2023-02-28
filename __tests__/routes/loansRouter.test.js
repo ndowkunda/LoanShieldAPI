@@ -1,11 +1,13 @@
 const request = require("supertest");
 const app = require("../../src/app");
-const LoansController = require("../../src/controllers/LoansController");
-const AgeValidator = require("../../src/utils/AgeValidator");
-const AnnualIncomeValidator = require("../../src/utils/AnnualIncomeValidator");
-const LoanAmountValidator = require("../../src/utils/LoanAmountValidator");
-const ResidentialMonthlyExpenditureValidator = require("../../src/utils/ResidentialMonthlyExpenditureValidator");
-const LoanValidator = require("../../src/utils/LoanValidator");
+const { LoansController } = require("../../src/controllers/controllers");
+const {
+  LoanValidator,
+  AgeValidator,
+  AnnualIncomeValidator,
+  LoanAmountValidator,
+  ResidentialMonthlyExpenditureValidator,
+} = require("../../src/utils/validators");
 
 describe("POST /loan-applications", () => {
   test('should return 200 and "Accepted" if loan application is accepted', async () => {
