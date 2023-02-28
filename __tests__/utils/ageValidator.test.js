@@ -1,6 +1,5 @@
 const AgeValidator = require("../../src/utils/AgeValidator");
 
-
 describe("Validate applicant's age", () => {
   test("should throw error when date of birth is invalid due to non-existent day", () => {
     const mockApplicantReq = {
@@ -54,6 +53,17 @@ describe("Validate applicant's age", () => {
     const ageValidator = new AgeValidator(25);
     const isValidAge = ageValidator.validate(mockApplicantReq);
     expect(isValidAge).toBe(false);
+  });
+  test("should return applicant's age is valid", () => {
+    const mockApplicantReq = {
+      dateOfBirth: "1997-02-20",
+      annualIncome: "50000",
+      loanAmount: "10000",
+      residentialMonthlyExpenditure: "900",
+    };
+    const ageValidator = new AgeValidator(25);
+    const isValidAge = ageValidator.validate(mockApplicantReq);
+    expect(isValidAge).toBe(true);
   });
   test("should return applicant's age in years", () => {
     const mockApplicantReq = {
