@@ -6,19 +6,18 @@ LoanShield is a loan application validation app that provides protection and sec
 
 LoanShield is built using the following dependencies:
 
-* :link: [Node.js](https://nodejs.org/) - open-source, cross-platform, back-end JavaScript runtime environment
-* :link: [Express](https://expressjs.com/) - Node.js web application framework.
-* :link: [Nodemon](https://nodemon.io/) - A tool that automatically restarts the Node.js application when file changes in the directory are detected.
-* :link: [Pug](https://pugjs.org/) - A high-performance template engine for Node.js, formerly known as Jade.
-* :link: [Jest](https://jestjs.io/) - A JavaScript testing framework for Node.js, used for testing the application logic.
-* :link: [Supertest](https://github.com/visionmedia/supertest) - A library used to test HTTP endpoints in Node.js, often used in combination with Jest.
+- :link: [Node.js](https://nodejs.org/) - open-source, cross-platform, back-end JavaScript runtime environment
+- :link: [Express](https://expressjs.com/) - Node.js web application framework.
+- :link: [Nodemon](https://nodemon.io/) - A tool that automatically restarts the Node.js application when file changes in the directory are detected.
+- :link: [Pug](https://pugjs.org/) - A high-performance template engine for Node.js, formerly known as Jade.
+- :link: [Jest](https://jestjs.io/) - A JavaScript testing framework for Node.js, used for testing the application logic.
+- :link: [Supertest](https://github.com/visionmedia/supertest) - A library used to test HTTP endpoints in Node.js, often used in combination with Jest.
 
 ## Getting Started
 
-:link: [view here](https://ndowkunda.github.io/LoanShieldAPI) 
+:link: [view here](https://ndowkunda.github.io/LoanShieldAPI)
 
-
-To start the LoanShield app locally:
+To start LoanShield locally:
 
 1. Install Node.js on your machine if you haven't already done so.
 
@@ -67,10 +66,10 @@ To use the `POST /loan-applications` endpoint, send a POST request to the follow
 
 The request body should include the following properties:
 
-- `dateOfBirth` (string, required): Applicant's date of birth.
-- `annualIncome` (string, required): Applicant's annual income
-- `loanAmount` (string, required): Applicant's requested loan amount
-- `residentialMonthlyExpenditure` (string, required): Applicant's stated monthly expenditure
+- `dateOfBirth` (string, required, format: YYYY-MM-DD): Applicant's date of birth.
+- `annualIncome` (string, required, format: number): Applicant's annual income
+- `loanAmount` (string, required), format: number) : Applicant's requested loan amount
+- `residentialMonthlyExpenditure` (string, required, format: number): Applicant's stated monthly expenditure
 
 Here's an example of a request body:
 
@@ -95,24 +94,57 @@ Here's an example of a response body:
 }
 ```
 
-## Validator Tests
+## Tests
 
-The LoanShield app includes validator classes that are used to build the rules for the loan application validation. Here's a sample of the tests for the validator classes located in the `src/utils` directory:
+Tests are organised into two contexts: `Applicant` and `Loan`.
+
+Here's a sample of the tests for the `Applicant`:
 
 ```js
-const {
-  AnnualIncomeValidator,
-} = require("../../src/utils/AnnualIncomeValidators");
+const { AnnualIncome } = require("../../src/Applicant/Applicant");
 
 describe("Validate annual income", () => {
   it("should return true if amount is greater minimum annual income", () => {
-    const annualIncomeValidator = new AnnualIncomeValidator(25000);
-    const expectedResult = annualIncomeValidator.validate();
+    const annualIncome = new AnnualIncome(25000);
+    const expectedResult = annualIncome.validate();
     expect(expectedResult).toBe(true);
   });
 });
+```
+
+Here's a sample of the tests for the `Loan`:
+
+```js
+jest.mock(".../../../src/Applicant/Age");
+const {
+  LoanValidationService,
+} = require("../../src/Loan/services/Services");
+
+describe("validate loan", () => {
+  test("should throw error due to incorrect date of birth format", () => {
+    const mockApplicantReq = {
+      dateOfBirth: "20-02-2000",
+      annualIncome: "50000",
+      loanAmount: "20000",
+      residentialMonthlyExpenditure: "900",
+    };
+
+    const mockAge = new Age(25);
+    mockAge.errors = [];
+    mockAge.validate = jest.fn((mockApplicantReq) => {
+      throw new Error("Invalid date of birth");
+    });
+
+    const loanValidationService = new LoanValidationService([mockAge]);
+
+    expect(() => loanValidationService.validate(mockApplicantReq)).toThrowError(
+      "Loan application invalid"
+    );
+  });
+})
 ```
 ## Acknowledgements
 
 This project was created and designed to give me hands-on experience with creating a RESTful API with SOLID principles in mind.
 Shout out to [@NC-1234](https://github.com/NC-1234) providing me with this opportunity to practice and develop these skills:pray:
+```
