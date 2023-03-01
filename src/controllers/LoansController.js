@@ -3,14 +3,22 @@ class LoansController {
     this.loanValidator = loanValidator;
   }
 
-  validate(req, res) {
+  async validate(req, res) {
     const loanApplication = req.body;
-    const isLoanApplicationValid = this.loanValidator.validate(loanApplication);
 
-    if (isLoanApplicationValid) {
-      return res.json({ Decision: "Accepted" });
-    } else {
-      return res.json({ Decision: "Rejected" });
+    try {
+      const isLoanApplicationValid = await this.loanValidator.validate(
+        loanApplication
+      );
+      if (isLoanApplicationValid) {
+        res.status(200).json({ Decision: "Accepted" });
+      } else {
+        res.status(200).json({ Decision: "Rejected" });
+      }
+    } catch (err) {
+      res
+        .status(400)
+        .json({ error: err.message, requestBody: loanApplication });
     }
   }
 }
