@@ -11,7 +11,7 @@ describe("validate loan amount", () => {
     const loanAmountValidator = new LoanAmountValidator();
     expect(() => {
       loanAmountValidator.validate(mockApplicantReq);
-    }).toThrowError("Annual income must be a numeric value");
+    }).toThrowError("Loan amount must be a numeric value");
   });
   test("should return valid loan amount", () => {
     const mockApplicantReq = {
