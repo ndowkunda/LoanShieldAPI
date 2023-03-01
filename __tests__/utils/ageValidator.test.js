@@ -12,7 +12,7 @@ describe("Validate applicant's age", () => {
     const ageValidator = new AgeValidator(25);
 
     expect(() => {
-      ageValidator.calculateAgeInYears(mockApplicantReq.dateOfBirth);
+      ageValidator.validate(mockApplicantReq);
     }).toThrowError("Invalid date of birth");
   });
   test("should throw error when date of birth is invalid due to non-existent month", () => {
@@ -26,7 +26,7 @@ describe("Validate applicant's age", () => {
     const ageValidator = new AgeValidator(25);
 
     expect(() => {
-      ageValidator.calculateAgeInYears(mockApplicantReq.dateOfBirth);
+      ageValidator.validate(mockApplicantReq);
     }).toThrowError("Invalid date of birth");
   });
   test("should throw error when date of birth is invalid due to invalid date format", () => {
@@ -40,7 +40,7 @@ describe("Validate applicant's age", () => {
     const ageValidator = new AgeValidator(25);
 
     expect(() => {
-      ageValidator.calculateAgeInYears(mockApplicantReq.dateOfBirth);
+      ageValidator.validate(mockApplicantReq);
     }).toThrowError("Invalid date of birth");
   });
   test("should return applicant's age is not valid", () => {
@@ -64,19 +64,5 @@ describe("Validate applicant's age", () => {
     const ageValidator = new AgeValidator(25);
     const isValidAge = ageValidator.validate(mockApplicantReq);
     expect(isValidAge).toBe(true);
-  });
-  test("should return applicant's age in years", () => {
-    const mockApplicantReq = {
-      dateOfBirth: "2005-02-20",
-      annualIncome: "50000",
-      loanAmount: "10000",
-      residentialMonthlyExpenditure: "900",
-    };
-    const ageValidator = new AgeValidator(25);
-    const actualAgeInYears = ageValidator.calculateAgeInYears(
-      mockApplicantReq.dateOfBirth
-    );
-    const expectedAgeInYears = 18;
-    expect(expectedAgeInYears).toEqual(actualAgeInYears);
   });
 });
