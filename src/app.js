@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 
-const loansRouter = require("./routes/loansRouter");
+const { LoanApplicationRouter } = require("./Loan/routes/Routes");
 
 app.use(express.json());
 
-app.use("/", loansRouter);
+app.use("/", LoanApplicationRouter);
 
 module.exports = app;

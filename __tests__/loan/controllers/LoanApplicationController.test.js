@@ -1,6 +1,6 @@
-const LoansController = require("../../src/controllers/LoansController");
+const LoanApplicationController = require("../../../src/Loan/controllers/LoanApplicationController");
 
-describe("LoansController", () => {
+describe("LoanApplicationController", () => {
   describe("validate", () => {
     test("should return 'Accepted' if loan application details meet criteria", async () => {
       const mockLoanValidator = { validate: jest.fn(() => true) };
@@ -14,9 +14,9 @@ describe("LoansController", () => {
         },
       };
       const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-      const loansController = new LoansController(mockLoanValidator);
+      const loanApplicationController = new LoanApplicationController(mockLoanValidator);
 
-      await loansController.validate(mockApplicantReq, mockRes);
+      await loanApplicationController.validate(mockApplicantReq, mockRes);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ Decision: "Accepted" });
     });
@@ -33,9 +33,9 @@ describe("LoansController", () => {
       };
       const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-      const loansController = new LoansController(mockLoanValidator);
+      const loanApplicationController = new LoanApplicationController(mockLoanValidator);
 
-      await loansController.validate(mockApplicantReq, mockRes);
+      await loanApplicationController.validate(mockApplicantReq, mockRes);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ Decision: "Rejected" });
     });
@@ -57,9 +57,9 @@ describe("LoansController", () => {
     };
     const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-    const loansController = new LoansController(mockLoanValidator);
+    const loanApplicationController = new LoanApplicationController(mockLoanValidator);
 
-    await loansController.validate(mockApplicantReq, mockRes);
+    await loanApplicationController.validate(mockApplicantReq, mockRes);
     expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: "Loan application invalid",

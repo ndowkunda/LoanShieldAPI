@@ -1,4 +1,4 @@
-const ResidentialMonthlyExpenditureValidator = require("../../src/utils/ResidentialMonthlyExpenditureValidator");
+const Expenditure = require("../../src/Applicant/Expenditure");
 
 describe("validate residential monthly expenditure", () => {
   test("should throw an error when residential monthly expenditure is NaN", () => {
@@ -8,10 +8,10 @@ describe("validate residential monthly expenditure", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "£900",
     };
-    const residentialMonthlyExpenditureValidator =
-      new ResidentialMonthlyExpenditureValidator(1000);
+    const expenditure =
+      new Expenditure(1000);
     expect(() => {
-      residentialMonthlyExpenditureValidator.validate(mockApplicantReq);
+      expenditure.validate(mockApplicantReq);
     }).toThrowError("Residential monthly expenditure must be a numeric value");
   });
   test("should return a valid residential monthly expenditure", () => {
@@ -21,10 +21,10 @@ describe("validate residential monthly expenditure", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const residentialMonthlyExpenditureValidator =
-      new ResidentialMonthlyExpenditureValidator(1000);
+    const expenditure =
+      new Expenditure(1000);
     const isValidResidentialMonthlyExpenditure =
-      residentialMonthlyExpenditureValidator.validate(mockApplicantReq);
+      expenditure.validate(mockApplicantReq);
     expect(isValidResidentialMonthlyExpenditure).toBe(true);
   });
     test("should return a invalid residential monthly expenditure", () => {
@@ -34,10 +34,10 @@ describe("validate residential monthly expenditure", () => {
         loanAmount: "10000",
         residentialMonthlyExpenditure: "1100",
       };
-      const residentialMonthlyExpenditureValidator =
-        new ResidentialMonthlyExpenditureValidator(1000);
+      const expenditure =
+        new Expenditure(1000);
       const isValidResidentialMonthlyExpenditure =
-        residentialMonthlyExpenditureValidator.validate(mockApplicantReq);
+        expenditure.validate(mockApplicantReq);
       expect(isValidResidentialMonthlyExpenditure).toBe(false);
     });
 });

@@ -1,4 +1,4 @@
-class LoanValidator {
+class LoanValidationService {
   constructor(rules) {
     this.rules = rules;
     this.errors = [];
@@ -32,4 +32,4 @@ class LoanValidator {
   }
 }
 
-module.exports = LoanValidator;
+module.exports = LoanValidationService;

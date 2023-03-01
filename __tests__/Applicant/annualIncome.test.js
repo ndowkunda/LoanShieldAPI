@@ -1,4 +1,4 @@
-const AnnualIncomeValidator = require("../../src/utils/AnnualIncomeValidator");
+const AnnualIncome = require("../../src/Applicant/AnnualIncome");
 
 describe("validate income", () => {
   test("should throw error when annual income is NaN", () => {
@@ -8,9 +8,9 @@ describe("validate income", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const annualIncomeValidator = new AnnualIncomeValidator(25000);
+    const annualIncome = new AnnualIncome(25000);
     expect(() => {
-      annualIncomeValidator.validate(mockApplicantReq);
+      annualIncome.validate(mockApplicantReq);
     }).toThrowError("Annual income must be a numeric value");
   });
   test("should return valid income when annual income is above 25000", () => {
@@ -20,9 +20,9 @@ describe("validate income", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const annualIncomeValidator = new AnnualIncomeValidator(25000);
+    const annualIncome = new AnnualIncome(25000);
     const isValidAnnualIncome =
-      annualIncomeValidator.validate(mockApplicantReq);
+      annualIncome.validate(mockApplicantReq);
     expect(isValidAnnualIncome).toBe(true);
   });
   test("should return invalid income when annual income is less than 25000", () => {
@@ -32,9 +32,9 @@ describe("validate income", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const annualIncomeValidator = new AnnualIncomeValidator(25000);
+    const annualIncome = new AnnualIncome(25000);
     const isValidAnnualIncome =
-      annualIncomeValidator.validate(mockApplicantReq);
+      annualIncome.validate(mockApplicantReq);
     expect(isValidAnnualIncome).toBe(false);
   });
 });
