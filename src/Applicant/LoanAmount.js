@@ -1,4 +1,4 @@
-class LoanAmountValidator {
+class LoanAmount {
   constructor() {
     this.errors = [];
   }
@@ -16,4 +16,4 @@ class LoanAmountValidator {
   }
 }
 
-module.exports = LoanAmountValidator;
+module.exports = LoanAmount;

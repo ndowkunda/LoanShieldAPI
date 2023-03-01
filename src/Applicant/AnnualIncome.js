@@ -1,4 +1,4 @@
-class AnnualIncomeValidator {
+class AnnualIncome {
   constructor(minimumAnnualIncome) {
     this.minimumAnnualIncome = minimumAnnualIncome;
     this.errors = [];
@@ -23,4 +23,4 @@ class AnnualIncomeValidator {
   }
 }
 
-module.exports = AnnualIncomeValidator;
+module.exports = AnnualIncome;

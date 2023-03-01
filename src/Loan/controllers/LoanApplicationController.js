@@ -1,13 +1,13 @@
-class LoansController {
-  constructor(loanValidator) {
-    this.loanValidator = loanValidator;
+class LoanApplicationController {
+  constructor(loanValidationService) {
+    this.loanValidationService = loanValidationService;
   }
 
   async validate(req, res) {
     const loanApplication = req.body;
 
     try {
-      const isLoanApplicationValid = await this.loanValidator.validate(
+      const isLoanApplicationValid = await this.loanValidationService.validate(
         loanApplication
       );
       if (isLoanApplicationValid) {
@@ -23,4 +23,4 @@ class LoansController {
   }
 }
 
-module.exports = LoansController;
+module.exports = LoanApplicationController;

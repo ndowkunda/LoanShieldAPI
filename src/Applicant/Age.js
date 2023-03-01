@@ -1,5 +1,5 @@
 const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
-class AgeValidator {
+class Age {
   constructor(minimumAgeInYears) {
     this.minimumAgeInYears = minimumAgeInYears;
     this.millisecondsInYear = millisecondsInYear;
@@ -32,4 +32,4 @@ class AgeValidator {
   }
 }
 
-module.exports = AgeValidator;
+module.exports = Age;

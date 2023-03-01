@@ -1,4 +1,4 @@
-class ResidentialMonthlyExpenditureValidator {
+class Expenditure {
   constructor(maximumResidentialMonthlyExpenditure) {
     this.maximumResidentialMonthlyExpenditure =
       maximumResidentialMonthlyExpenditure;
@@ -24,4 +24,4 @@ class ResidentialMonthlyExpenditureValidator {
   }
 }
 
-module.exports = ResidentialMonthlyExpenditureValidator;
+module.exports = Expenditure;
