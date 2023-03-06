@@ -1,4 +1,6 @@
-const LoanApplicationController = require("../../../src/Loan/controllers/LoanApplicationController");
+const {
+  LoanApplicationController,
+} = require("../../src/controllers/Controllers");
 
 describe("LoanApplicationController", () => {
   describe("validate", () => {
@@ -14,7 +16,9 @@ describe("LoanApplicationController", () => {
         },
       };
       const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-      const loanApplicationController = new LoanApplicationController(mockLoanValidator);
+      const loanApplicationController = new LoanApplicationController(
+        mockLoanValidator
+      );
 
       await loanApplicationController.validate(mockApplicantReq, mockRes);
       expect(mockRes.status).toHaveBeenCalledWith(200);
@@ -33,7 +37,9 @@ describe("LoanApplicationController", () => {
       };
       const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-      const loanApplicationController = new LoanApplicationController(mockLoanValidator);
+      const loanApplicationController = new LoanApplicationController(
+        mockLoanValidator
+      );
 
       await loanApplicationController.validate(mockApplicantReq, mockRes);
       expect(mockRes.status).toHaveBeenCalledWith(200);
@@ -57,7 +63,9 @@ describe("LoanApplicationController", () => {
     };
     const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-    const loanApplicationController = new LoanApplicationController(mockLoanValidator);
+    const loanApplicationController = new LoanApplicationController(
+      mockLoanValidator
+    );
 
     await loanApplicationController.validate(mockApplicantReq, mockRes);
     expect(mockRes.status).toHaveBeenCalledWith(400);

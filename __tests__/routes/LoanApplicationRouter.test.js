@@ -1,21 +1,19 @@
 const request = require("supertest");
-const app = require("../../../src/app");
+const app = require("../../src/app");
 const {
   LoanApplicationController,
-} = require("../../../src/Loan/controllers/Controllers");
-const {
-  LoanValidationService,
-} = require("../../../src/Loan/services/Services");
+} = require("../../src/controllers/Controllers");
+const { LoanValidationService } = require("../../src/services/Services");
 const {
   Age,
   AnnualIncome,
   LoanAmount,
   Expenditure,
-} = require("../../../src/Applicant/Applicant");
+} = require("../../src/domain/Customer");
 
 describe("POST /loan-applications", () => {
   test('should return 200 and "Accepted" if loan application is valid', async () => {
-    const applicant = {
+    const customer = {
       dateOfBirth: "1982-08-25",
       annualIncome: "33400",
       loanAmount: "4500",
@@ -40,14 +38,14 @@ describe("POST /loan-applications", () => {
 
     const response = await request(app)
       .post("/loan-applications")
-      .send(applicant)
+      .send(customer)
       .set("Accept", "application/json");
 
     expect(response.status).toBe(200);
     expect(response.body.Decision).toBe("Accepted");
   });
   test('should return 200 and "Rejected" if loan application is invalid', async () => {
-    const applicant = {
+    const customer = {
       dateOfBirth: "2000-08-25",
       annualIncome: "24000",
       loanAmount: "12000",
@@ -72,14 +70,14 @@ describe("POST /loan-applications", () => {
 
     const response = await request(app)
       .post("/loan-applications")
-      .send(applicant)
+      .send(customer)
       .set("Accept", "application/json");
 
     expect(response.status).toBe(200);
     expect(response.body.Decision).toBe("Rejected");
   });
-  test('should return 400 and "Loan application invalid" if applicant data is not in correct format', async () => {
-    const applicant = {
+  test('should return 400 and "Loan application invalid" if customer data is not in correct format', async () => {
+    const customer = {
       dateOfBirth: "20-02-2000",
       annualIncome: "£24000",
       loanAmount: "£1000",
@@ -103,7 +101,7 @@ describe("POST /loan-applications", () => {
 
     const response = await request(app)
       .post("/loan-applications")
-      .send(applicant)
+      .send(customer)
       .set("Accept", "application/json");
 
     expect(response.status).toBe(400);

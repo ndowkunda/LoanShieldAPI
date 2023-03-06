@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const { LoanApplicationRouter } = require("./Loan/routes/Routes");
+const { LoanApplicationRouter } = require("./routes/Routes");
 
 app.use(express.json());
 

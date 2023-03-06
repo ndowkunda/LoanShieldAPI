@@ -7,7 +7,7 @@ const {
   AnnualIncome,
   LoanAmount,
   Expenditure,
-} = require("../../Applicant/Applicant");
+} = require("../domain/Customer");
 
 const age = new Age(25);
 const annualIncome = new AnnualIncome(25000);

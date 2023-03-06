@@ -1,8 +1,8 @@
-const LoanAmount = require("../../src/Applicant/LoanAmount");
+const LoanAmount = require("../../src/domain/LoanAmount");
 
 describe("validate loan amount", () => {
   test("should throw error as loan amount is NaN", () => {
-    const mockApplicantReq = {
+    const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "50000",
       loanAmount: "£20000",
@@ -10,29 +10,29 @@ describe("validate loan amount", () => {
     };
     const loanAmount = new LoanAmount();
     expect(() => {
-      loanAmount.validate(mockApplicantReq);
+      loanAmount.validate(mockCustomerReq);
     }).toThrowError("Loan amount must be a numeric value");
   });
   test("should return valid loan amount", () => {
-    const mockApplicantReq = {
+    const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "50000",
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
     const loanAmount = new LoanAmount();
-    const isValidLoanAmount = loanAmount.validate(mockApplicantReq);
+    const isValidLoanAmount = loanAmount.validate(mockCustomerReq);
     expect(isValidLoanAmount).toBe(true);
   });
   test("should return invalid loan amount", () => {
-    const mockApplicantReq = {
+    const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "50000",
       loanAmount: "25000",
       residentialMonthlyExpenditure: "900",
     };
     const loanAmount = new LoanAmount();
-    const isValidLoanAmount = loanAmount.validate(mockApplicantReq);
+    const isValidLoanAmount = loanAmount.validate(mockCustomerReq);
     expect(isValidLoanAmount).toBe(false);
   });
 });
