@@ -58,7 +58,7 @@ This will run the tests using Jest and Supertest to make assertions on the route
 
 ## Endpoints
 
-The LoanShield app includes a `POST /loan-applications` endpoint that accepts applicant data and returns a decision object indicating whether their loan application has been approved or declined. The response object will include a `Decision` property with the value of either `"Approved"` or `"Rejected"`.
+The LoanShield app includes a `POST /loan-applications` endpoint that accepts customer data and returns a decision object indicating whether their loan application has been approved or declined. The response object will include a `Decision` property with the value of either `"Approved"` or `"Rejected"`.
 
 To use the `POST /loan-applications` endpoint, send a POST request to the following URL:
 
@@ -66,10 +66,10 @@ To use the `POST /loan-applications` endpoint, send a POST request to the follow
 
 The request body should include the following properties:
 
-- `dateOfBirth` (string, required, format: YYYY-MM-DD): Applicant's date of birth.
-- `annualIncome` (string, required, format: number): Applicant's annual income
-- `loanAmount` (string, required), format: number) : Applicant's requested loan amount
-- `residentialMonthlyExpenditure` (string, required, format: number): Applicant's stated monthly expenditure
+- `dateOfBirth` (string, required, format: YYYY-MM-DD): Customer's date of birth.
+- `annualIncome` (string, required, format: number): Customer's annual income
+- `loanAmount` (string, required), format: number) : Customer's requested loan amount
+- `residentialMonthlyExpenditure` (string, required, format: number): Customer's stated monthly expenditure
 
 Here's an example of a request body:
 
@@ -96,12 +96,12 @@ Here's an example of a response body:
 
 ## Tests
 
-Tests are organised into two contexts: `Applicant` and `Loan`.
+Tests are organised with the domain separate from the app routes,controllers and services.
 
-Here's a sample of the tests for the `Applicant`:
+Here's a sample of the tests for the `domain`:
 
 ```js
-const { AnnualIncome } = require("../../src/Applicant/Applicant");
+const { AnnualIncome } = require("../../src/Customer/Customer");
 
 describe("Validate annual income", () => {
   it("should return true if amount is greater minimum annual income", () => {
@@ -112,17 +112,17 @@ describe("Validate annual income", () => {
 });
 ```
 
-Here's a sample of the tests for the `Loan`:
+Here's a sample of the tests for the `Services`:
 
 ```js
-jest.mock(".../../../src/Applicant/Age");
+jest.mock(".../../../src/Customer/Age");
 const {
   LoanValidationService,
 } = require("../../src/Loan/services/Services");
 
 describe("validate loan", () => {
   test("should throw error due to incorrect date of birth format", () => {
-    const mockApplicantReq = {
+    const mockCustomerReq = {
       dateOfBirth: "20-02-2000",
       annualIncome: "50000",
       loanAmount: "20000",
@@ -131,13 +131,13 @@ describe("validate loan", () => {
 
     const mockAge = new Age(25);
     mockAge.errors = [];
-    mockAge.validate = jest.fn((mockApplicantReq) => {
+    mockAge.validate = jest.fn((mockCustomerReq) => {
       throw new Error("Invalid date of birth");
     });
 
     const loanValidationService = new LoanValidationService([mockAge]);
 
-    expect(() => loanValidationService.validate(mockApplicantReq)).toThrowError(
+    expect(() => loanValidationService.validate(mockCustomerReq)).toThrowError(
       "Loan application invalid"
     );
   });
