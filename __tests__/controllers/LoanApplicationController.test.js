@@ -5,6 +5,7 @@ const {
   mockCustomerReq,
   mockRes,
 } = require("../../__mocks__/mockCustomer.mock");
+const { mockLoanValidator } = require("../../__mocks__/mockLoanValidator");
 let loanApplicationController;
 let { dateOfBirth, annualIncome, loanAmount, residentialMonthlyExpenditure } =
   mockCustomerReq.body;
@@ -12,8 +13,6 @@ let { dateOfBirth, annualIncome, loanAmount, residentialMonthlyExpenditure } =
 describe("LoanApplicationController", () => {
   describe("validate", () => {
     test("should return 'Accepted' if loan application details meet criteria", async () => {
-      const mockLoanValidator = { validate: jest.fn(() => true) };
-
       loanApplicationController = new LoanApplicationController(
         mockLoanValidator
       );
@@ -24,7 +23,7 @@ describe("LoanApplicationController", () => {
     });
 
     test("should return 'Rejected' if loan application details do not meet criteria", async () => {
-      const mockLoanValidator = { validate: jest.fn(() => false) };
+      mockLoanValidator.validate.mockReturnValue(false);
 
       loanApplicationController = new LoanApplicationController(
         mockLoanValidator
@@ -36,18 +35,14 @@ describe("LoanApplicationController", () => {
     });
   });
   test("should return 400 with error message and request body if loan application contains invalid details", async () => {
-    const mockLoanValidator = {
-      validate: jest.fn(() => {
-        throw new Error("Loan application invalid");
-      }),
-    };
+    mockLoanValidator.validate.mockImplementation(() => {
+      throw new Error("Loan application invalid");
+    });
 
     dateOfBirth = "20-02-2000";
     annualIncome = "£50000";
     loanAmount = "£10000";
     residentialMonthlyExpenditure = "£900";
-
-    const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
     loanApplicationController = new LoanApplicationController(
       mockLoanValidator
