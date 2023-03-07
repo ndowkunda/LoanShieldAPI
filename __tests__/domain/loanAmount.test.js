@@ -17,7 +17,7 @@ describe("validate loan amount", () => {
       loanAmount.validate(mockCustomerReq);
     }).toThrowError("Loan amount must be a numeric value");
   });
-  test("should return valid loan amount", () => {
+  test("should return true when loan amount is less than 20% of annual income", () => {
     const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "50000",
@@ -27,7 +27,7 @@ describe("validate loan amount", () => {
     const isValidLoanAmount = loanAmount.validate(mockCustomerReq);
     expect(isValidLoanAmount).toBe(true);
   });
-  test("should return invalid loan amount", () => {
+  test("should return false when loan amount is above 20% of annual income", () => {
     const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "50000",

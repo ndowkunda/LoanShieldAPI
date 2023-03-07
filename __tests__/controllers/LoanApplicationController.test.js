@@ -12,7 +12,7 @@ let { dateOfBirth, annualIncome, loanAmount, residentialMonthlyExpenditure } =
 
 describe("LoanApplicationController", () => {
   describe("validate", () => {
-    test("should return 'Accepted' if loan application details meet criteria", async () => {
+    test("should return response status code 200 and 'Accepted' if loan application details meet criteria", async () => {
       loanApplicationController = new LoanApplicationController(
         mockLoanValidator
       );
@@ -22,7 +22,7 @@ describe("LoanApplicationController", () => {
       expect(mockRes.json).toHaveBeenCalledWith({ Decision: "Accepted" });
     });
 
-    test("should return 'Rejected' if loan application details do not meet criteria", async () => {
+    test("should return response status code 200 and 'Rejected' if loan application details do not meet criteria", async () => {
       mockLoanValidator.validate.mockReturnValue(false);
 
       loanApplicationController = new LoanApplicationController(
@@ -34,7 +34,7 @@ describe("LoanApplicationController", () => {
       expect(mockRes.json).toHaveBeenCalledWith({ Decision: "Rejected" });
     });
   });
-  test("should return 400 with error message and request body if loan application contains invalid details", async () => {
+  test("should return response status code 400 and throw 'Loan application invalid' error with original request body if loan application contains invalid details", async () => {
     mockLoanValidator.validate.mockImplementation(() => {
       throw new Error("Loan application invalid");
     });

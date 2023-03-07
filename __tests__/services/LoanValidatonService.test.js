@@ -79,7 +79,7 @@ describe("validate loan", () => {
       "Loan application invalid"
     );
   });
-  test("should return an invalid loan application due to failing age criteria", () => {
+  test("should throw error due to failing age criteria", () => {
     dateOfBirth = "2000-02-20";
 
     const mockAge = jest.fn();
@@ -90,7 +90,7 @@ describe("validate loan", () => {
     expect(loanValidationService.validate(mockCustomerReq)).toBe(false);
     expect(loanValidationService.errors).toEqual(["Age must be least 25"]);
   });
-  test("should return an invalid loan application due to failing annual income criteria", () => {
+  test("should throw error due to failing annual income criteria", () => {
     annualIncome = "20000";
 
     const mockAnnualIncome = jest.fn();
@@ -103,7 +103,7 @@ describe("validate loan", () => {
       "Annual income must be least 25000",
     ]);
   });
-  test("should return an invalid loan application due to failing loan amount criteria", () => {
+  test("should throw error due to failing loan amount criteria", () => {
     loanAmount = "15000";
 
     const mockLoanAmount = jest.fn();
@@ -118,7 +118,7 @@ describe("validate loan", () => {
       "Loan amount must be less than 20% of annual income",
     ]);
   });
-  test("should return an invalid loan application due to failing residential monthly expenditure criteria", () => {
+  test("should throw error due to failing residential monthly expenditure criteria", () => {
     residentialMonthlyExpenditure = "1100";
 
     const mockExpenditure = jest.fn();

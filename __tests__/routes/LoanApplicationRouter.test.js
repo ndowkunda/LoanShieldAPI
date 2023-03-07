@@ -32,7 +32,7 @@ beforeEach(() => {
   );
 });
 describe("POST /loan-applications", () => {
-  test('should return 200 and "Accepted" if loan application is valid', async () => {
+  test("should return response status code 200 and 'Accepted' if loan application is valid", async () => {
     const customer = {
       dateOfBirth: "1982-08-25",
       annualIncome: "33400",
@@ -48,7 +48,7 @@ describe("POST /loan-applications", () => {
     expect(response.status).toBe(200);
     expect(response.body.Decision).toBe("Accepted");
   });
-  test('should return 200 and "Rejected" if loan application is invalid', async () => {
+  test("should return response status code 200 and 'Rejected' if loan application is invalid", async () => {
     const customer = {
       dateOfBirth: "2000-08-25",
       annualIncome: "24000",
@@ -64,14 +64,14 @@ describe("POST /loan-applications", () => {
     expect(response.status).toBe(200);
     expect(response.body.Decision).toBe("Rejected");
   });
-  test('should return 400 and "Loan application invalid" if customer data is not in correct format', async () => {
+  test("should return response status code 400 and throw 'Loan application invalid' error if customer data is not in correct format", async () => {
     const customer = {
       dateOfBirth: "20-02-2000",
       annualIncome: "£24000",
       loanAmount: "£1000",
       residentialMonthlyExpenditure: "£900",
     };
-    
+
     const response = await request(app)
       .post("/loan-applications")
       .send(customer)

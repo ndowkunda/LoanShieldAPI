@@ -28,13 +28,13 @@ describe("Validate customer's age", () => {
       age.validate(mockCustomerReq);
     }).toThrowError("Invalid date of birth");
   });
-  test("should return customer's age is not valid", () => {
+  test("should return false when customer's age is under minimum age requirement", () => {
     mockCustomerReq.body.dateOfBirth = "2005-02-20";
 
     const isValidAge = age.validate(mockCustomerReq.body);
     expect(isValidAge).toBe(false);
   });
-  test("should return customer's age is valid", () => {
+  test("should return true when customer's age is or above minimum age requirement", () => {
     mockCustomerReq.body.dateOfBirth = "1996-02-20";
 
     const isValidAge = age.validate(mockCustomerReq.body);

@@ -17,7 +17,7 @@ describe("validate income", () => {
       annualIncome.validate(mockCustomerReq);
     }).toThrowError("Annual income must be a numeric value");
   });
-  test("should return valid income when annual income is above 25000", () => {
+  test("should return true when annual income is above minimum annual income requirement", () => {
     const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "50000",
@@ -27,7 +27,7 @@ describe("validate income", () => {
     const isValidAnnualIncome = annualIncome.validate(mockCustomerReq);
     expect(isValidAnnualIncome).toBe(true);
   });
-  test("should return invalid income when annual income is less than 25000", () => {
+  test("should return false when annual income is less than minimum annual income requirement", () => {
     const mockCustomerReq = {
       dateOfBirth: "2005-02-20",
       annualIncome: "24000",
