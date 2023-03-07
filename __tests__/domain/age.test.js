@@ -1,4 +1,9 @@
 const Age = require("../../src/domain/Age");
+let age;
+
+beforeEach(() => {
+  age = new Age(25);
+});
 
 describe("Validate customer's age", () => {
   test("should throw error when date of birth is invalid due to non-existent day", () => {
@@ -8,8 +13,6 @@ describe("Validate customer's age", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-
-    const age = new Age(25);
 
     expect(() => {
       age.validate(mockCustomerReq);
@@ -23,8 +26,6 @@ describe("Validate customer's age", () => {
       residentialMonthlyExpenditure: "900",
     };
 
-    const age = new Age(25);
-
     expect(() => {
       age.validate(mockCustomerReq);
     }).toThrowError("Invalid date of birth");
@@ -37,8 +38,6 @@ describe("Validate customer's age", () => {
       residentialMonthlyExpenditure: "900",
     };
 
-    const age = new Age(25);
-
     expect(() => {
       age.validate(mockCustomerReq);
     }).toThrowError("Invalid date of birth");
@@ -50,7 +49,6 @@ describe("Validate customer's age", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const age = new Age(25);
     const isValidAge = age.validate(mockCustomerReq);
     expect(isValidAge).toBe(false);
   });
@@ -61,7 +59,6 @@ describe("Validate customer's age", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const age = new Age(25);
     const isValidAge = age.validate(mockCustomerReq);
     expect(isValidAge).toBe(true);
   });

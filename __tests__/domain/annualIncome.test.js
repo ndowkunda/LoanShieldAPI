@@ -1,4 +1,9 @@
 const AnnualIncome = require("../../src/domain/AnnualIncome");
+let annualIncome;
+
+beforeEach(() => {
+  annualIncome = new AnnualIncome(25000);
+});
 
 describe("validate income", () => {
   test("should throw error when annual income is NaN", () => {
@@ -8,7 +13,6 @@ describe("validate income", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const annualIncome = new AnnualIncome(25000);
     expect(() => {
       annualIncome.validate(mockCustomerReq);
     }).toThrowError("Annual income must be a numeric value");
@@ -20,9 +24,7 @@ describe("validate income", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const annualIncome = new AnnualIncome(25000);
-    const isValidAnnualIncome =
-      annualIncome.validate(mockCustomerReq);
+    const isValidAnnualIncome = annualIncome.validate(mockCustomerReq);
     expect(isValidAnnualIncome).toBe(true);
   });
   test("should return invalid income when annual income is less than 25000", () => {
@@ -32,9 +34,7 @@ describe("validate income", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const annualIncome = new AnnualIncome(25000);
-    const isValidAnnualIncome =
-      annualIncome.validate(mockCustomerReq);
+    const isValidAnnualIncome = annualIncome.validate(mockCustomerReq);
     expect(isValidAnnualIncome).toBe(false);
   });
 });

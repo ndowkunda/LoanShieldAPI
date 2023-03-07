@@ -10,7 +10,27 @@ const {
   LoanAmount,
   Expenditure,
 } = require("../../src/domain/Customer");
+let age;
+let annualIncome;
+let loanAmount;
+let expenditure;
+let loanValidatonService;
 
+beforeEach(() => {
+  age = new Age(25);
+  annualIncome = new AnnualIncome(25000);
+  loanAmount = new LoanAmount();
+  expenditure = new Expenditure(1000);
+  loanValidatonService = new LoanValidationService([
+    age,
+    annualIncome,
+    loanAmount,
+    expenditure,
+  ]);
+  loanApplicationController = new LoanApplicationController(
+    loanValidatonService
+  );
+});
 describe("POST /loan-applications", () => {
   test('should return 200 and "Accepted" if loan application is valid', async () => {
     const customer = {
@@ -19,22 +39,6 @@ describe("POST /loan-applications", () => {
       loanAmount: "4500",
       residentialMonthlyExpenditure: "100",
     };
-
-    const age = new Age(25);
-    const annualIncome = new AnnualIncome(25000);
-    const loanAmount = new LoanAmount();
-    const expenditure = new Expenditure(1000);
-
-    const loanValidatonService = new LoanValidationService([
-      age,
-      annualIncome,
-      loanAmount,
-      expenditure,
-    ]);
-
-    const loanApplicationController = new LoanApplicationController(
-      loanValidatonService
-    );
 
     const response = await request(app)
       .post("/loan-applications")
@@ -52,22 +56,6 @@ describe("POST /loan-applications", () => {
       residentialMonthlyExpenditure: "1100",
     };
 
-    const age = new Age(25);
-    const annualIncome = new AnnualIncome(25000);
-    const loanAmount = new LoanAmount();
-    const expenditure = new Expenditure(1000);
-
-    const loanValidatonService = new LoanValidationService([
-      age,
-      annualIncome,
-      loanAmount,
-      expenditure,
-    ]);
-
-    const loanApplicationController = new LoanApplicationController(
-      loanValidatonService
-    );
-
     const response = await request(app)
       .post("/loan-applications")
       .send(customer)
@@ -83,22 +71,7 @@ describe("POST /loan-applications", () => {
       loanAmount: "£1000",
       residentialMonthlyExpenditure: "£900",
     };
-
-    const age = new Age(25);
-    const annualIncome = new AnnualIncome(25000);
-    const loanAmount = new LoanAmount();
-    const expenditure = new Expenditure(1000);
-
-    const loanValidatonService = new LoanValidationService([
-      age,
-      annualIncome,
-      loanAmount,
-      expenditure,
-    ]);
-    const loanApplicationController = new LoanApplicationController(
-      loanValidatonService
-    );
-
+    
     const response = await request(app)
       .post("/loan-applications")
       .send(customer)

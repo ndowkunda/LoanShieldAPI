@@ -1,4 +1,9 @@
 const LoanAmount = require("../../src/domain/LoanAmount");
+let loanAmount;
+
+beforeEach(() => {
+  loanAmount = new LoanAmount();
+});
 
 describe("validate loan amount", () => {
   test("should throw error as loan amount is NaN", () => {
@@ -8,7 +13,6 @@ describe("validate loan amount", () => {
       loanAmount: "£20000",
       residentialMonthlyExpenditure: "900",
     };
-    const loanAmount = new LoanAmount();
     expect(() => {
       loanAmount.validate(mockCustomerReq);
     }).toThrowError("Loan amount must be a numeric value");
@@ -20,7 +24,6 @@ describe("validate loan amount", () => {
       loanAmount: "10000",
       residentialMonthlyExpenditure: "900",
     };
-    const loanAmount = new LoanAmount();
     const isValidLoanAmount = loanAmount.validate(mockCustomerReq);
     expect(isValidLoanAmount).toBe(true);
   });
@@ -31,7 +34,6 @@ describe("validate loan amount", () => {
       loanAmount: "25000",
       residentialMonthlyExpenditure: "900",
     };
-    const loanAmount = new LoanAmount();
     const isValidLoanAmount = loanAmount.validate(mockCustomerReq);
     expect(isValidLoanAmount).toBe(false);
   });

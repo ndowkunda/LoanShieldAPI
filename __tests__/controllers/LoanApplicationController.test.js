@@ -1,6 +1,7 @@
 const {
   LoanApplicationController,
 } = require("../../src/controllers/Controllers");
+let loanApplicationController;
 
 describe("LoanApplicationController", () => {
   describe("validate", () => {
@@ -16,7 +17,7 @@ describe("LoanApplicationController", () => {
         },
       };
       const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-      const loanApplicationController = new LoanApplicationController(
+      loanApplicationController = new LoanApplicationController(
         mockLoanValidator
       );
 
@@ -37,7 +38,7 @@ describe("LoanApplicationController", () => {
       };
       const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-      const loanApplicationController = new LoanApplicationController(
+      loanApplicationController = new LoanApplicationController(
         mockLoanValidator
       );
 
@@ -63,7 +64,7 @@ describe("LoanApplicationController", () => {
     };
     const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-    const loanApplicationController = new LoanApplicationController(
+    loanApplicationController = new LoanApplicationController(
       mockLoanValidator
     );
 
