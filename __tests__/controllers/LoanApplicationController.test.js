@@ -1,6 +1,10 @@
 const {
   LoanApplicationController,
 } = require("../../src/controllers/Controllers");
+const {
+  mockCustomerReq,
+  mockRes,
+} = require("../../__mocks__/mockCustomer.mock");
 let loanApplicationController;
 
 describe("LoanApplicationController", () => {
@@ -8,41 +12,23 @@ describe("LoanApplicationController", () => {
     test("should return 'Accepted' if loan application details meet criteria", async () => {
       const mockLoanValidator = { validate: jest.fn(() => true) };
 
-      const mockApplicantReq = {
-        body: {
-          dateOfBirth: "2005-02-20",
-          annualIncome: "50000",
-          loanAmount: "10000",
-          residentialMonthlyExpenditure: "900",
-        },
-      };
-      const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       loanApplicationController = new LoanApplicationController(
         mockLoanValidator
       );
 
-      await loanApplicationController.validate(mockApplicantReq, mockRes);
+      await loanApplicationController.validate(mockCustomerReq, mockRes);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ Decision: "Accepted" });
     });
 
     test("should return 'Rejected' if loan application details do not meet criteria", async () => {
       const mockLoanValidator = { validate: jest.fn(() => false) };
-      const mockApplicantReq = {
-        body: {
-          dateOfBirth: "2005-02-20",
-          annualIncome: "50000",
-          loanAmount: "10000",
-          residentialMonthlyExpenditure: "900",
-        },
-      };
-      const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
       loanApplicationController = new LoanApplicationController(
         mockLoanValidator
       );
 
-      await loanApplicationController.validate(mockApplicantReq, mockRes);
+      await loanApplicationController.validate(mockCustomerReq, mockRes);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ Decision: "Rejected" });
     });
@@ -53,26 +39,29 @@ describe("LoanApplicationController", () => {
         throw new Error("Loan application invalid");
       }),
     };
+    let {
+      dateOfBirth,
+      annualIncome,
+      loanAmount,
+      residentialMonthlyExpenditure,
+    } = mockCustomerReq.body;
 
-    const mockApplicantReq = {
-      body: {
-        dateOfBirth: "20-02-2000",
-        annualIncome: "£50000",
-        loanAmount: "£10000",
-        residentialMonthlyExpenditure: "£900",
-      },
-    };
+    dateOfBirth = "20-02-2000";
+    annualIncome = "£50000";
+    loanAmount = "£10000";
+    residentialMonthlyExpenditure = "£900";
+
     const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
     loanApplicationController = new LoanApplicationController(
       mockLoanValidator
     );
 
-    await loanApplicationController.validate(mockApplicantReq, mockRes);
+    await loanApplicationController.validate(mockCustomerReq, mockRes);
     expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: "Loan application invalid",
-      requestBody: mockApplicantReq.body,
+      requestBody: mockCustomerReq.body,
     });
   });
 });
