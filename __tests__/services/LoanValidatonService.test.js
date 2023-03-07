@@ -9,17 +9,14 @@ const {
   LoanAmount,
   Expenditure,
 } = require("../../src/domain/Customer");
+const { mockCustomerReq } = require("../../__mocks__/mockCustomer.mock");
 let loanValidationService;
+let { dateOfBirth, annualIncome, loanAmount, residentialMonthlyExpenditure } =
+  mockCustomerReq.body;
 
 describe("validate loan", () => {
   test("should throw error due to incorrect date of birth format", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "20-02-2000",
-      annualIncome: "50000",
-      loanAmount: "20000",
-      residentialMonthlyExpenditure: "900",
-    };
-
+    dateOfBirth = "20-02-2000";
     const mockAge = new Age(25);
     mockAge.errors = [];
     mockAge.validate = jest.fn((mockCustomerReq) => {
@@ -33,12 +30,7 @@ describe("validate loan", () => {
     );
   });
   test("should throw error due to invalid annual income format", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "1997-02-20",
-      annualIncome: "£50000",
-      loanAmount: "10000",
-      residentialMonthlyExpenditure: "900",
-    };
+    annualIncome = "£50000";
 
     const mockAnnualIncome = new AnnualIncome(25000);
     mockAnnualIncome.errors = [];
@@ -53,13 +45,7 @@ describe("validate loan", () => {
     );
   });
   test("should throw error due to invalid loan amount format", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "1997-02-20",
-      annualIncome: "50000",
-      loanAmount: "£10000",
-      residentialMonthlyExpenditure: "900",
-    };
-
+    loanAmount = "£10000";
     const mockLoanAmount = new LoanAmount();
     mockLoanAmount.errors = [];
     mockLoanAmount.validate = jest.fn((mockCustomerReq) => {
@@ -72,12 +58,7 @@ describe("validate loan", () => {
     );
   });
   test("should throw error due to incorrect residential monthly expenditure format", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "1997-02-20",
-      annualIncome: "50000",
-      loanAmount: "10000",
-      residentialMonthlyExpenditure: "£900",
-    };
+    residentialMonthlyExpenditure = "£900";
 
     const mockExpenditure = new Expenditure(1000);
     mockExpenditure.errors = [];
@@ -94,12 +75,7 @@ describe("validate loan", () => {
     );
   });
   test("should return an invalid loan application due to failing age criteria", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "2000-02-20",
-      annualIncome: "50000",
-      loanAmount: "20000",
-      residentialMonthlyExpenditure: "900",
-    };
+    dateOfBirth = "2000-02-20";
 
     const mockAge = new Age(25);
     mockAge.validate = jest.fn().mockReturnValue(false);
@@ -110,12 +86,7 @@ describe("validate loan", () => {
     expect(loanValidationService.errors).toEqual(["Age must be least 25"]);
   });
   test("should return an invalid loan application due to failing annual income criteria", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "2000-02-20",
-      annualIncome: "20000",
-      loanAmount: "1000",
-      residentialMonthlyExpenditure: "900",
-    };
+    annualIncome = "20000";
 
     const mockAnnualIncome = new AnnualIncome(25000);
     mockAnnualIncome.validate = jest.fn().mockReturnValue(false);
@@ -128,12 +99,7 @@ describe("validate loan", () => {
     ]);
   });
   test("should return an invalid loan application due to failing loan amount criteria", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "2000-02-20",
-      annualIncome: "20000",
-      loanAmount: "15000",
-      residentialMonthlyExpenditure: "900",
-    };
+    loanAmount = "15000";
 
     const mockLoanAmount = new LoanAmount();
     mockLoanAmount.validate = jest.fn().mockReturnValue(false);
@@ -148,12 +114,7 @@ describe("validate loan", () => {
     ]);
   });
   test("should return an invalid loan application due to failing residential monthly expenditure criteria", () => {
-    const mockCustomerReq = {
-      dateOfBirth: "2000-02-20",
-      annualIncome: "20000",
-      loanAmount: "1000",
-      residentialMonthlyExpenditure: "1100",
-    };
+    residentialMonthlyExpenditure = "1100";
 
     const mockExpenditure = new Expenditure(1000);
     mockExpenditure.validate = jest.fn().mockReturnValue(false);

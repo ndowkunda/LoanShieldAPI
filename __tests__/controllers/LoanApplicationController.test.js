@@ -6,6 +6,8 @@ const {
   mockRes,
 } = require("../../__mocks__/mockCustomer.mock");
 let loanApplicationController;
+let { dateOfBirth, annualIncome, loanAmount, residentialMonthlyExpenditure } =
+  mockCustomerReq.body;
 
 describe("LoanApplicationController", () => {
   describe("validate", () => {
@@ -39,12 +41,6 @@ describe("LoanApplicationController", () => {
         throw new Error("Loan application invalid");
       }),
     };
-    let {
-      dateOfBirth,
-      annualIncome,
-      loanAmount,
-      residentialMonthlyExpenditure,
-    } = mockCustomerReq.body;
 
     dateOfBirth = "20-02-2000";
     annualIncome = "£50000";
